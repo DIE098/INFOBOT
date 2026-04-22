@@ -6,7 +6,7 @@
 # ======================================================
 
 # Telegram Bot Token
-BOT_TOKEN = "8683472965:AAFTPyOAQRpfHUyVh4EEv7ioAHpvw5kfH64"
+BOT_TOKEN = "8106557982:AAG3CHkqkbJlXsEGw-iPIB92xzTeHJ_U_9E"
 
 # Channel Link (Jisko join karna hoga)
 CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
@@ -15,7 +15,7 @@ CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
 CHANNEL_USERNAME = "NAME"  # <-- YAHAN APNA CHANNEL USERNAME DALO
 
 # OWNER ID - SIRF YAHI BROADCAST KAR SAKTA HAI
-OWNER_ID = ["8469352140", "8721643962"]
+OWNER_ID = "8721643962"
 
 # ======================================================
 
@@ -142,14 +142,14 @@ def get_welcome_message(first_name):
 
 ⚠️ VERIFICATION REQUIRED
 
-Please join our channel to access all features!
+JOIN CHANNEL TO ACCES INFO BOT
 
 📢 Channel: {CHANNEL_LINK}
 
-👉 Click JOIN CHANNEL below
-👉 Then click VERIFY MEMBERSHIP
+👉 CLICK TO JOIN CHANNEL 
+👉 THEN VERIFY MEMBERSHIP
 
-👑 Owner: @M_JITENDRA
+👑 OWNER: @TG_SURAJ_OWNER
 """
 
 def get_main_menu_message(first_name):
@@ -163,7 +163,8 @@ def get_main_menu_message(first_name):
 ⚡ MODE: UNLIMITED
 🎯 STATUS: READY
 
-👑 Owner: @M_JITENDRA
+DEVELOPER ➠ DIE 
+OWNER ➠ @TG_SURAJ_OWNER
 """
 
 def get_stats_message(verified_count, active_count, total_success):
@@ -203,7 +204,7 @@ def get_bomb_stop_message(success, failed, total):
 ❌ FAILED: {failed}
 📊 TOTAL: {total}
 
-👑 Owner: @M_JITENDRA
+👑 OWNER: @TG_SURAJ_OWNER
 """
 
 def get_number_lookup_result(num, data):
@@ -250,7 +251,7 @@ def get_broadcast_message(msg):
 
 {msg}
 
-👑 Owner: @M_JITENDRA
+👑 OWNER: @TG_SURAJ_OWNER
 """
 
 # ======================================================
