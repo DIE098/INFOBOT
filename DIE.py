@@ -12,7 +12,7 @@ OWNER = "@TG_SURAJ_OWNER"
 
 
 
-Owner: @TG_SURAJ_OWNER"""
+Owner: @TG_SURAJ_OWNER"
 
 USERS_FILE = "users_data.json"
 USERS = set()
