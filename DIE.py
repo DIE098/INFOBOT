@@ -6,7 +6,7 @@
 # ======================================================
 
 # Telegram Bot Token
-BOT_TOKEN = "8683472965:AAE1nMoXex9EDuJeNd9uAQ-l81JO95Eg85s"
+BOT_TOKEN = "8683472965:AAFTPyOAQRpfHUyVh4EEv7ioAHpvw5kfH64"
 
 # Channel Link (Jisko join karna hoga)
 CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
@@ -15,7 +15,7 @@ CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
 CHANNEL_USERNAME = "NAME"  # <-- YAHAN APNA CHANNEL USERNAME DALO
 
 # OWNER ID - SIRF YAHI BROADCAST KAR SAKTA HAI
-OWNER_ID = "8721643962"
+OWNER_ID = ["8469352140", "8721643962"]
 
 # ======================================================
 
