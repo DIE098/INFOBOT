@@ -242,7 +242,7 @@ def get_tgid_result(userid, number, country):
 📞 PHONE: +{number}
 🌍 COUNTRY: {country}
 
-👑 Owner: @M_JITENDRA
+🔥 @TG_SURAJ_OWNER
 """
 
 def get_broadcast_message(msg):
