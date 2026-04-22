@@ -1,5 +1,5 @@
 # Telegram Bot Token
-BOT_TOKEN = "8658828312:AAGONunez7yhn22nrwpoSdCTl8ZUiTIw9w0"
+BOT_TOKEN = "8658828312:AAGB3YHK0h6BurWyw_-YQi-qREdRr9R08c8"
 
 # Channel Link (Jisko join karna hoga)
 CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
@@ -601,7 +601,7 @@ def handle_message(chat_id, text, username, first_name, user_states):
     
     return None
 # ======================================================
-# 🚀 MAIN FUNCTION (FIXED)
+# 🚀 MAIN FUNCTION (OPTIMIZED + FIXED)
 # ======================================================
 def main():
     load_data()
@@ -610,7 +610,6 @@ def main():
     print("🔥 BOT STARTED SUCCESSFULLY 🔥")
     print("=" * 50)
     print(f"👑 OWNER IDs: {', '.join(OWNER_IDS)}")
-    print(f"✅ VERIFIED USERS: {len(verified_users)}")
     print(f"📢 CHANNEL: {CHANNEL_LINK}")
     print("=" * 50)
     print("🚀 BOT IS RUNNING...")
@@ -621,11 +620,12 @@ def main():
 
     while True:
         try:
+            # ⚡ FAST POLLING (optimized)
             updates = get_updates(last_update_id + 1 if last_update_id else None)
 
             for update in updates:
 
-                # 🔥 IMPORTANT FIX (prevents duplicate messages)
+                # 🔥 FIX: prevents duplicate messages
                 last_update_id = update.get("update_id") + 1
 
                 message = update.get("message")
@@ -648,7 +648,7 @@ def main():
                             edit_message(
                                 chat_id,
                                 message_id,
-                                get_welcome_message("User") + "\n\n❌ Verification Failed! Join channel first.",
+                                get_welcome_message("User") + "\n\n❌ Join channel first!",
                                 verify_keyboard()
                             )
 
@@ -664,7 +664,7 @@ def main():
                     state = user_states.get(chat_id, "")
 
                     # =========================
-                    # NORMAL FLOW
+                    # ⚡ NORMAL FLOW (FAST)
                     # =========================
                     new_state = handle_message(chat_id, text, username, first_name, user_states)
 
@@ -673,12 +673,16 @@ def main():
                     elif state:
                         user_states[chat_id] = ""
 
-            time.sleep(0.5)
+            # ⚡ ULTRA FAST LOOP DELAY
+            time.sleep(0.1)
 
         except Exception as e:
             print(f"Error: {e}")
-            time.sleep(5)
+            time.sleep(2)
 
 
+# ======================================================
+# 🚀 START BOT
+# ======================================================
 if __name__ == "__main__":
     main()
