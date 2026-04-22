@@ -5,14 +5,9 @@ import random
 import threading
 from datetime import datetime
 
-BOT_TOKEN = "8620677010:AAEUcNXfDU0T6x_sFitPUzyKx4SkWdnZFZ4"
+BOT_TOKEN = "8683472965:AAGTyqSkjHJaQlb6Awl_SENWda27RXQs8sw"
 DEVELOPER = "DIE"
 OWNER = "@TG_SURAJ_OWNER"
-
-
-
-
-Owner: @TG_SURAJ_OWNER"
 
 USERS_FILE = "users_data.json"
 USERS = set()
