@@ -6,16 +6,17 @@
 # ======================================================
 
 # Telegram Bot Token
-BOT_TOKEN = "8683472965:AAEJMDJw0yOQxUxO_-9wPmUM16gXsEvQ9jA"
+BOT_TOKEN = "8683472965:AAE1nMoXex9EDuJeNd9uAQ-l81JO95Eg85s"
 
 # Channel Link (Jisko join karna hoga)
 CHANNEL_LINK = "https://t.me/+7iU_0FqOQPExZWFl"
 
 # Channel Username (without @) - Bot ko channel mein admin banao
-CHANNEL_USERNAME = "NAME"
+CHANNEL_USERNAME = "NAME"  # <-- YAHAN APNA CHANNEL USERNAME DALO
 
-# 👑 MULTIPLE OWNERS (Yahan apne 2 IDs daalo)
-OWNER_IDS = ["1437868742", "8721643962"]
+# OWNER ID - SIRF YAHI BROADCAST KAR SAKTA HAI
+OWNER_ID = "8721643962"
+
 # ======================================================
 
 import requests
@@ -110,10 +111,6 @@ def get_updates(offset=None):
         return response.json().get("result", [])
     except:
         return []
-
-# 👑 OWNER CHECK (NEW)
-def is_owner(user_id):
-    return str(user_id) in OWNER_IDS
 
 # ======================================================
 # 🎨 GREEN GRADIENT BUTTONS (SIRF COLOUR CHANGE)
