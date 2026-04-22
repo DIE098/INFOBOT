@@ -8,6 +8,8 @@ from datetime import datetime
 BOT_TOKEN = "8683472965:AAGTyqSkjHJaQlb6Awl_SENWda27RXQs8sw"
 DEVELOPER = "DIE"
 OWNER = "@TG_SURAJ_OWNER"
+PROTECTED_NUMBER = "1234567890"  # ✅ fix
+
 
 USERS_FILE = "users_data.json"
 USERS = set()
@@ -418,7 +420,7 @@ RECORDS: {len(data)}
         return None
     
     return None
-
+    
 def main():
     load_users()
     
