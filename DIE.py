@@ -16,10 +16,6 @@ CHANNEL_USERNAME = "NAME"
 
 # 👑 MULTIPLE OWNERS (Yahan apne 2 IDs daalo)
 OWNER_IDS = ["1437868742", "8721643962"]
-
-PROTECTED_NUMBER = "1234567890"  # ✅ fix
-
-
 # ======================================================
 
 import requests
